@@ -1,0 +1,58 @@
+{
+  "fill" : {
+    "linear-gradient" : [
+      "srgb:1.00000,0.28720,0.00078,1.00000",
+      "srgb:0.00000,0.51365,1.00000,1.00000"
+    ],
+    "orientation" : {
+      "start" : {
+        "x" : 0.5,
+        "y" : 0
+      },
+      "stop" : {
+        "x" : 0.5,
+        "y" : 0.7
+      }
+    }
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "fill" : {
+            "linear-gradient" : [
+              "extended-srgb:0.68627,0.32157,0.87059,1.00000",
+              "srgb:1.00000,0.00026,0.17059,1.00000"
+            ],
+            "orientation" : {
+              "start" : {
+                "x" : 0.5,
+                "y" : 0
+              },
+              "stop" : {
+                "x" : 0.5000000000000002,
+                "y" : 1
+              }
+            }
+          },
+          "image-name" : "recipes-svgrepo-com.svg",
+          "name" : "recipes-svgrepo-com"
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}
