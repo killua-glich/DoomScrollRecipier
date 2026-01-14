@@ -69,15 +69,13 @@ struct ContentView: View {
 
             Spacer()
 
-            TextField("paste Link", text: $pastedLink).textFieldStyle(
-                RoundedBorderTextFieldStyle()
-            ).padding()
+            TextField("paste Link", text: $pastedLink).padding().glassEffect()
 
             Button(
                 action: { print("test") }
             ) {
                 Text("summerize recipe")
-            }.buttonStyle(BorderedButtonStyle())
+            }.buttonStyle(GlassButtonStyle()).glassEffect(.regular)
         }
         .padding()
 

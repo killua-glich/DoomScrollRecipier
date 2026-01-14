@@ -7,6 +7,7 @@
 
 internal import Combine
 import Foundation
+import FoundationModels
 import Observation
 import SwiftUI
 
