@@ -10,7 +10,9 @@ import AVFoundation
 
 
 class VideoFileService {
-    func downloadTempFile(from url: URL) async throws -> URL {
+
+    // Downloads a remote URL to a stable local temp file
+    private func downloadTempFile(from url: URL) async throws -> URL {
         let (tempURL, _) = try await URLSession.shared.download(from: url)
         let filename = UUID().uuidString + "." + url.pathExtension
         let destination = FileManager.default.temporaryDirectory.appendingPathComponent(filename)
@@ -21,7 +23,8 @@ class VideoFileService {
         return destination
     }
     
-    func extractAudio(from videoURL: URL) async throws -> URL {
+    // Extracts audio track from a local video file and writes it as .m4a
+    private func extractAudio(from videoURL: URL) async throws -> URL {
         let asset = AVURLAsset(url: videoURL)
         let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".m4a")
         
@@ -29,12 +32,17 @@ class VideoFileService {
             throw NSError(domain: "ExportError", code: -1)
         }
         
-        exportSession.outputURL = outputURL
-        exportSession.outputFileType = .m4a
-        
-        try await exportSession.export()
+        // export(to:as:) is the non-deprecated API in iOS 18+
+        try await exportSession.export(to: outputURL, as: .m4a)
         
         return outputURL
+    }
+
+    // Full pipeline: remote URL → local video → local audio file ready for transcription
+    func process(url: URL) async throws -> URL {
+        let videoURL = try await downloadTempFile(from: url)
+        defer { try? FileManager.default.removeItem(at: videoURL) }
+        return try await extractAudio(from: videoURL)
     }
 }
 

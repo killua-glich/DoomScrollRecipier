@@ -38,7 +38,7 @@ class TranscriptionService {
         }
 
         let request = SFSpeechURLRecognitionRequest(url: url)
-        request.requiresOnDeviceRecognition = false
+        request.requiresOnDeviceRecognition = true
         request.shouldReportPartialResults = false
 
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<String, Error>) in

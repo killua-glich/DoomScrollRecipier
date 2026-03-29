@@ -72,7 +72,11 @@ struct ContentView: View {
             TextField("paste Link", text: $pastedLink).padding().glassEffect()
 
             Button(
-                action: { print("test") }
+                action: {
+                    if let url = URL(string: pastedLink) {
+                        viewModel.transcribeFromUrl(url)
+                    }
+                }
             ) {
                 Text("summerize recipe")
             }.buttonStyle(GlassButtonStyle()).glassEffect(.regular)

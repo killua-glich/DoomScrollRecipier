@@ -4,4 +4,8 @@
    <FileRef
       location = "self:">
    </FileRef>
+   <Group
+      location = "group:DoomScrollRecipierTests"
+      name = "DoomScrollRecipierTests">
+   </Group>
 </Workspace>

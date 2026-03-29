@@ -43,20 +43,22 @@ class ContentViewModel: ObservableObject {
     }
 
     func transcribeFromUrl(_ url: URL) {
-        self.statusMessage = "Transcribing..."
+        self.statusMessage = "Downloading..."
         self.transcript = ""
 
         Task { @MainActor in
             do {
-                // If `url` is already the audio file URL, we can pass it directly.
-                // If you need to convert a page URL to an audio file, use `videoFileService` here.
-                let text = try await transcriptionService.transcribe(
-                    url: videoFileService.extractAudio(from: url)
-                )
+                // Download video, extract audio, then transcribe
+                self.statusMessage = "Extracting audio..."
+                let audioURL = try await videoFileService.process(url: url)
+                defer { try? FileManager.default.removeItem(at: audioURL) }
+
+                self.statusMessage = "Transcribing..."
+                let text = try await transcriptionService.transcribe(url: audioURL)
                 self.transcript = text
+                self.statusMessage = "Done."
             } catch {
-                self.statusMessage =
-                    "Transcription failed: \(error.localizedDescription)"
+                self.statusMessage = "Failed: \(error.localizedDescription)"
             }
         }
     }
